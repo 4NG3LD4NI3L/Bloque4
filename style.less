@@ -1,0 +1,82 @@
+// Variables para los colores
+@bg-color: #54f4ff;
+@border-color: #b0b0b0;
+@text-color: #ff00f7;
+@input-bg-color: #ffffff;
+@button-bg-color: #f0f0f0;
+@forgot-password-color: #800080;
+
+// Colores para roles
+@admin-color: #0077ff;
+@manager-color: #00c37f;
+@owner-color: #80bfff;
+@sales-agent-color: #ffa500;
+@prospect-color: #ff4040;
+
+// Estilos del formulario
+.form-container {
+  background-color: @bg-color;
+  padding: 20px;
+  border: 3px solid @border-color;
+  width: 500px;
+  margin: auto;
+  
+  h1 {
+    color: @text-color;
+    text-align: left;
+    font-size: 2em;
+  }
+
+  label {
+    color: @text-color;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid @border-color;
+    background-color: @input-bg-color;
+    font-size: 1em;
+  }
+
+  // Roles
+  .roles {
+    list-style-type: none;
+    padding: 0;
+    
+    li {
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px dotted darkblue;
+      color: white;
+      
+      &.admin { background-color: @admin-color; }
+      &.manager { background-color: @manager-color; }
+      &.owner { background-color: @owner-color; }
+      &.sales-agent { background-color: @sales-agent-color; }
+      &.prospect { background-color: @prospect-color; }
+    }
+  }
+
+  // Botón de acceso
+  button {
+    background-color: @button-bg-color;
+    padding: 10px 20px;
+    border: 1px solid @border-color;
+    cursor: pointer;
+  }
+
+  // Enlace de contraseña olvidada
+  a {
+    color: @forgot-password-color;
+    text-decoration: underline;
+    font-size: 1em;
+    display: block;
+    margin-top: 10px;
+  }
+}

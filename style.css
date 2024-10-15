@@ -1,0 +1,65 @@
+.form-container {
+  background-color: #54f4ff;
+  padding: 20px;
+  border: 3px solid #b0b0b0;
+  width: 500px;
+  margin: auto;
+}
+.form-container h1 {
+  color: #ff00f7;
+  text-align: left;
+  font-size: 2em;
+}
+.form-container label {
+  color: #ff00f7;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+.form-container input[type="text"],
+.form-container input[type="password"] {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #b0b0b0;
+  background-color: #ffffff;
+  font-size: 1em;
+}
+.form-container .roles {
+  list-style-type: none;
+  padding: 0;
+}
+.form-container .roles li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px dotted darkblue;
+  color: white;
+}
+.form-container .roles li.admin {
+  background-color: #0077ff;
+}
+.form-container .roles li.manager {
+  background-color: #00c37f;
+}
+.form-container .roles li.owner {
+  background-color: #80bfff;
+}
+.form-container .roles li.sales-agent {
+  background-color: #ffa500;
+}
+.form-container .roles li.prospect {
+  background-color: #ff4040;
+}
+.form-container button {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border: 1px solid #b0b0b0;
+  cursor: pointer;
+}
+.form-container a {
+  color: #800080;
+  text-decoration: underline;
+  font-size: 1em;
+  display: block;
+  margin-top: 10px;
+}
