@@ -106,7 +106,7 @@
               <div class="card-body">
                 <h5 class="card-title">Producto 2</h5>
                 <p class="card-text">Descripcion</p>
-                <a href=".../Detalles.php" class="btn btn-primary">Ver producto</a>
+                <a href="/Detalles.php" class="btn btn-primary">Ver producto</a>
               </div>
             </div>
           </div>

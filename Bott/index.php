@@ -17,20 +17,21 @@
                 <img src="retr.jpg" class="img-fluid mb-4 rounded-circle" alt="Profile Image" style="max-width: 150px;">
                 <h1 class="mb-4 fw-bold text-primary">SIGN INTO YOUR ACCOUNT</h1>
                 <form action="aute.php" method="POST">
-                    <div class="mb-3 text-start">
-                      <label class="form-label">Email</label>
+                  <div class="mb-3 text-start">
+                      <label for="correo" class="form-label">Email</label>
                       <input type="email" class="form-control" name="correo" id="correo" aria-describedby="emailHelp" required>
-                    </div>
-                    <div class="mb-3 text-start">
-                      <label class="form-label">Password</label>
+                  </div>
+                  <div class="mb-3 text-start">
+                      <label for="contrasena" class="form-label">Password</label>
                       <input type="password" class="form-control" name="contrasena" id="contrasena" required>
-                    </div>
-                    <div class="mb-3 form-check text-start">
-                      <input type="checkbox" class="form-check-input">
-                      <label class="form-check-label">Remember me</label>
-                    </div>
-                    <input type="hidden" name="action" value="login">
-                    <button type="submit" href="../Bott/pag.php" class="btn btn-primary w-100">Submit</button>
+                  </div>
+                  <div class="mb-3 form-check text-start">
+                      <input type="checkbox" class="form-check-input" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Remember me</label>
+                  </div>
+                  <!-- Campo oculto para indicar la acción -->
+                  <input type="hidden" name="action" value="login">
+                  <button type="submit" class="btn btn-primary w-100">Submit</button>
                 </form>
             </div>
         </div>
