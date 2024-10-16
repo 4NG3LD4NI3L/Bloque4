@@ -7,7 +7,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Sidebar -->
+  <?php include 'contr.php';?>
+  <?php $products = getProducts();?>
+
   <div class="d-flex">
     <div class="bg-dark text-white p-3 min-vh-100">
       <h4>Sidebar</h4>
@@ -45,7 +47,6 @@
 
     <!-- Main content -->
     <div class="flex-grow-1">
-      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar scroll</a>
@@ -86,40 +87,21 @@
         </div>
       </nav>
 
-      <!-- Tarjetas -->
       <div class="container mt-4">
-        <h1>Lista de productos</h1>
+        <h1>Lista de cócteles</h1>
         <div class="row">
+          <?php foreach ($products as $product): ?>
           <div class="col-md-4">
             <div class="card">
-              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Product 1">
+              <img src="<?= htmlspecialchars($product['strDrinkThumb']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['strDrink']) ?>">
               <div class="card-body">
-                <h5 class="card-title">Product 1</h5>
-                <p class="card-text">Descripcion</p>
-                <a href="/Detalles.php" class="btn btn-primary">Ver producto</a>
+                <h5 class="card-title"><?= htmlspecialchars($product['strDrink']) ?></h5>
+                <p class="card-text"><?= htmlspecialchars($product['strInstructions']) ?></p>
+                <a href="/Detalles.php?id=<?= htmlspecialchars($product['idDrink']) ?>" class="btn btn-primary">Ver receta</a>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Product 2">
-              <div class="card-body">
-                <h5 class="card-title">Producto 2</h5>
-                <p class="card-text">Descripcion</p>
-                <a href="/Detalles.php" class="btn btn-primary">Ver producto</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img src="https://via.placeholder.com/50" class="card-img-top" alt="Product 3">
-              <div class="card-body">
-                <h5 class="card-title">Producto 3</h5>
-                <p class="card-text">Descripcion</p>
-                <a href="/Detalles.php" class="btn btn-primary">Ver producto</a>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
