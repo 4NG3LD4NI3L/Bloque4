@@ -88,21 +88,21 @@
       </nav>
 
       <div class="container mt-4">
-        <h1>Lista de cócteles</h1>
-        <div class="row">
-          <?php foreach ($products as $product): ?>
-          <div class="col-md-4">
-            <div class="card">
-              <img src="<?= htmlspecialchars($product['strDrinkThumb']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['strDrink']) ?>">
-              <div class="card-body">
-                <h5 class="card-title"><?= htmlspecialchars($product['strDrink']) ?></h5>
-                <p class="card-text"><?= htmlspecialchars($product['strInstructions']) ?></p>
-                <a href="/Detalles.php?id=<?= htmlspecialchars($product['idDrink']) ?>" class="btn btn-primary">Ver receta</a>
+          <h1>Lista de productos</h1>
+          <div class="row">
+            <?php foreach ($products as $product): ?>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="<?= htmlspecialchars($product['cover']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
+                <div class="card-body">
+                  <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
+                  <p class="card-text"><?= htmlspecialchars($product['description']) ?></p>
+                  <a href="/bloque4/bott/Detalles.php?id=<?= htmlspecialchars($product['id']) ?><?= htmlspecialchars($product['categories'][0]['slug']) ?>" class="btn btn-primary">Ver detalles</a>
+                </div>
               </div>
             </div>
+            <?php endforeach; ?>
           </div>
-          <?php endforeach; ?>
-        </div>
       </div>
     </div>
   </div>

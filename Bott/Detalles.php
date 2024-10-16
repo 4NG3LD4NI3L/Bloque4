@@ -7,6 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+
   <!-- Sidebar -->
   <div class="d-flex">
     <div class="bg-dark text-white p-3 min-vh-100">
@@ -89,85 +91,47 @@
       <!-- Tarjetas -->
       <div class="container mt-4">
         <h1>Detalles de productos</h1>
+
+        <?php
+        include 'contr.php';
+
+       
+        $id = $_GET['id'] ?? null;
+
         
+        if ($id) {
+          $product = getProductDetails($id);
+
+          if ($product) {
+        ?>
         <div class="card">
           <div class="card-header">
-            Featured
+            <?= htmlspecialchars($product['categories'][0]['slug']) ?>
           </div>
           <div class="card-body">
             <div class="row">
-              <div class="col-xs-12 col-md-4" >
-                <div id="carouselExampleIndicators" class="carousel slide">
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img src="https://ui-avatars.com/api/?name=John+Doe" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                      <img src="https://ui-avatars.com/api/?name=John+Doe" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                      <img src="https://ui-avatars.com/api/?name=John+Doe" class="d-block w-100" alt="...">
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
-                </div>
+              <div class="col-xs-12 col-md-4">
+                <img src="<?= htmlspecialchars($product['cover']) ?>" class="d-block w-100" alt="<?= htmlspecialchars($product['name']) ?>">
               </div>
   
               <div class="col">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <h3>$100.00</h3>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet omnis dolor suscipit labore libero provident similique id, repudiandae sequi? Voluptatum expedita possimus temporibus unde perspiciatis reprehenderit mollitia quam earum fuga!</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
+                <h3>$<?= htmlspecialchars(number_format($product['presentations'][0]['price'][0]['amount'], 2)) ?></h3>
+                <p class="card-text">Descripcion: <?= htmlspecialchars($product['features']) ?></p>
+                <a href="#" class="btn btn-primary">Comprar</a>
               </div>
             </div>
           </div>
         </div>
+        <?php
+          } else {
+            echo "<div class='alert alert-danger'>Producto no encontrado.</div>";
+          }
+        } else {
+          echo "<div class='alert alert-warning'>ID del producto no proporcionado.</div>";
+        }
+        ?>
 
-        <div class="card">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-          
       </div>
     </div>
   </div>
