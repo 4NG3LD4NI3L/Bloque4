@@ -88,16 +88,65 @@
       </nav>
 
       <div class="container mt-4">
-          <h1>Lista de productos</h1>
+
+      <div class="container d-flex my-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><a href="#">Productos</a></li>
+            </ol>
+        </nav>
+
+        
+        <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            Add Producto
+        </button>
+    </div>
+
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="modalForm" action="contr.php" method="POST" enctype="multipart/form-data">
+                      <div class="mb-3">
+                          <label for="name" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" name="name" id="name" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="slug" class="form-label">Slug</label>
+                          <input type="text" class="form-control" name="slug" id="slug" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="description" class="form-label">Descripción</label>
+                          <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
+                      </div>
+                      <div class="mb-3">
+                          <label for="Caracteristicas" class="form-label">Características</label>
+                          <textarea class="form-control" name="features" id="features" rows="3" required></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
           <div class="row">
             <?php foreach ($products as $product): ?>
             <div class="col-md-4">
-              <div class="card">
+              <div class="card mb-3">
                 <img src="<?= htmlspecialchars($product['cover']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
                 <div class="card-body">
                   <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
                   <p class="card-text"><?= htmlspecialchars($product['description']) ?></p>
                   <a href="/bloque4/bott/Detalles.php?id=<?= htmlspecialchars($product['id']) ?><?= htmlspecialchars($product['categories'][0]['slug']) ?>" class="btn btn-primary">Ver detalles</a>
+
+                  <a href="/bloque4/bott/EditProduct.php?id=<?= htmlspecialchars($product['id']) ?>" class="btn btn-warning mt-2">Editar</a>
+                  <a href="/bloque4/bott/DeleteProduct.php?id=<?= htmlspecialchars($product['id']) ?>" class="btn btn-danger mt-2">Eliminar</a>
                 </div>
               </div>
             </div>
