@@ -1,3 +1,20 @@
+<?php 	
+	include_once "contr.php";
+  include_once "BrandController.php";
+
+  $control = new ProducController();
+  $brandController = new BrandController();
+
+  if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != null) {
+      $products = $control->get();
+      $brands = $brandController->get();
+  } else {
+      header('Location: index.php');
+      exit;
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +24,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <?php include 'contr.php';?>
-  <?php $products = getProducts();?>
-
   <div class="d-flex">
     <div class="bg-dark text-white p-3 min-vh-100">
       <h4>Sidebar</h4>
@@ -102,7 +116,30 @@
         </button>
     </div>
 
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+
+          <div class="row">
+          <?php foreach ($products as $product): ?>
+              <div class="col-md-4">
+                  <div class="card mb-3">
+                      <img src="<?= htmlspecialchars($product->cover) ?>" class="card-img-top" alt="<?= htmlspecialchars($product->name) ?>">
+                      <div class="card-body">
+                          <h5 class="card-title"><?= htmlspecialchars($product->name) ?></h5>
+                          <p class="card-text"><?= htmlspecialchars($product->description) ?></p>
+                          <a href="./Detalles.php?slug=<?= $product->slug  ?>" class="btn btn-primary">Ver detalles</a>
+                          <button onclick='editar(this)' data-product='<?= json_encode($product)  ?>' data-bs-toggle="modal" data-bs-target="#updateModal" type="button" class="btn btn-warning">Editar</button>
+                          <button onclick="eliminar(<?= $product->id ?>)" type="button" class="btn btn-danger m-2">Eliminar</button>
+                      </div>
+                  </div>
+              </div>
+          <?php endforeach; ?>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,10 +147,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="modalForm" action="contr.php" method="POST" enctype="multipart/form-data">
+                  <form id="modalForm" action="./contr.php" method="POST" enctype="multipart/form-data">
                       <div class="mb-3">
                           <label for="name" class="form-label">Nombre</label>
-                          <input type="text" class="form-control" name="name" id="name" required>
+                          <input type="text" class="form-control" name="nombre" id="nombre" required>
                       </div>
                       <div class="mb-3">
                           <label for="slug" class="form-label">Slug</label>
@@ -127,35 +164,163 @@
                           <label for="Caracteristicas" class="form-label">Características</label>
                           <textarea class="form-control" name="features" id="features" rows="3" required></textarea>
                       </div>
+                      <div class="mb-3">
+                        <label for="slug" class="form-label">
+                          Marca
+                        </label>
+                        
+                        <select class="form-control">
+                          <?php if (isset($brands) && count($brands)): ?>
+                          <?php foreach ($brands as $brand): ?>
+                          <option value="<?= $brand->id ?>">
+                            <?= $brand->name ?>
+                          </option>
+                          <?php endforeach ?>
+                          <?php endif ?>
+                          
+                        </select>
+
+                      </div>
                       <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                      <input type="hidden" name="action" value="create_product">
                   </form>
                 </div>
             </div>
         </div>
     </div>
 
+	<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">
+	        	Editar producto
+	        </h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="POST" action="contr.php">
+			  
+			  <div class="mb-3">
+			    <label for="nombre" class="form-label">
+			    	Nombre
+			    </label>
+			    <input type="text" class="form-control" id="update_nombre" name="nombre" aria-describedby="emailHelp" required> 
+			  </div>
+			  
+			  <div class="mb-3">
+			    <label for="slug" class="form-label">
+			    	Slug
+			    </label>
+			    <input type="text" class="form-control" id="update_slug" name="slug" required> 
+			  </div>
 
-          <div class="row">
-            <?php foreach ($products as $product): ?>
-            <div class="col-md-4">
-              <div class="card mb-3">
-                <img src="<?= htmlspecialchars($product['cover']) ?>" class="card-img-top" alt="<?= htmlspecialchars($product['name']) ?>">
-                <div class="card-body">
-                  <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
-                  <p class="card-text"><?= htmlspecialchars($product['description']) ?></p>
-                  <a href="/bloque4/bott/Detalles.php?id=<?= htmlspecialchars($product['id']) ?><?= htmlspecialchars($product['categories'][0]['slug']) ?>" class="btn btn-primary">Ver detalles</a>
+			  <div class="mb-3">
+			    <label for="slug" class="form-label">
+			    	description
+			    </label>
+			    <input type="text" class="form-control" id="update_description" name="description" required> 
+			  </div>
 
-                  <a href="/bloque4/bott/EditProduct.php?id=<?= htmlspecialchars($product['id']) ?>" class="btn btn-warning mt-2">Editar</a>
-                  <a href="/bloque4/bott/DeleteProduct.php?id=<?= htmlspecialchars($product['id']) ?>" class="btn btn-danger mt-2">Eliminar</a>
-                </div>
-              </div>
-            </div>
-            <?php endforeach; ?>
-          </div>
-      </div>
-    </div>
-  </div>
+			  <div class="mb-3">
+			    <label for="slug" class="form-label">
+			    	features
+			    </label>
+			    <input type="text" class="form-control" id="update_features" name="features" required> 
+			  </div>
+			  
+			  <div class="mb-3">
+			    <label for="slug" class="form-label">
+			    	Marca
+			    </label>
+			    
+			    <select class="form-control">
+			    	<?php if (isset($brands) && count($brands)): ?>
+			    	<?php foreach ($brands as $brand): ?>
+			    	<option value="<?= $brand->id ?>">
+			    		<?= $brand->name ?>
+			    	</option>
+			    	<?php endforeach ?>
+			    	<?php endif ?>
+			    	
+			    </select>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+			  </div>
+			  
+			  <button type="submit" class="btn btn-primary">
+			  	Crear producto
+			  </button>
+
+			  <input type="hidden" name="action" value="update_product">
+				
+			  <input type="hidden" name="product_id" id="product_id">
+
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+	        	Cancelar
+	        </button> 
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<form method="POST" id="remove_form" action="contr.php"> 
+
+	  <input type="hidden" name="action" value="delete_product">
+	  <input type="hidden" name="product_id" id="product_id_delete">
+
+	</form>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
+		
+		function editar(boton)
+		{
+
+			let producto = JSON.parse(boton.dataset.product);
+
+			console.log(producto.id)
+			
+			document.getElementById("update_nombre").value = producto.name
+			document.getElementById("update_slug").value = producto.slug
+			document.getElementById("update_description").value = producto.description
+			document.getElementById("update_features").value = producto.features
+			document.getElementById("product_id").value = producto.id
+			
+
+
+		}
+
+		function eliminar(product_id)
+		{
+			swal({
+			  title: "Are you sure?",
+			  text: "Once deleted, you will not be able to recover this imaginary file!",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+			    
+			    swal("Poof! Your imaginary file has been deleted!", {
+			      icon: "success",
+			    });
+
+			    document.getElementById("product_id_delete").value = product_id
+
+			    document.getElementById('remove_form').submit();
+			  
+			  } else {
+			    
+			  }
+			});
+		}
+
+	</script>
+
 </body>
 </html>

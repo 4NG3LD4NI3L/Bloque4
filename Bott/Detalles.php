@@ -1,3 +1,25 @@
+<?php 	
+	include_once "contr.php";
+	$control = new ProducController();
+
+	if (!isset($_GET['slug']) || $_GET['slug']=="") {
+		header('Location: pag.php'); 
+	}
+
+
+	if (isset($_SESSION['user_id']) && $_SESSION['user_id']!=null) {
+		
+
+		$product = $control->getBySlug($_GET['slug']);
+
+
+	}else{
+
+		header('Location: index.php');
+	}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,50 +111,124 @@
       </nav>
 
       <!-- Tarjetas -->
-      <div class="container mt-4">
-        <h1>Detalles de productos</h1>
+      <div class="container p-3"> 
 
-        <?php
-        include 'contr.php';
+							<h2>
+								Detalle del producto
+							</h2>
 
-       
-        $id = $_GET['id'] ?? null;
+							<div class="card mb-3">
+							  <div class="card-header">
+							    <?= $product->name ?>
+							  </div>
+							  <div class="card-body">
+							    
+							  	<div class="row">
+							  		
+							  		<div class="col-xs-12 col-md-4  mb-2">
+							  			
+							  			<div id="carouselExampleIndicators" class="carousel slide">
+											  <div class="carousel-indicators">
+											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+											  </div>
+											  <div class="carousel-inner">
+											    <div class="carousel-item active">
+											      <img src="<?= $product->cover ?>" class="d-block w-100" alt="...">
+											    </div>
+											    <div class="carousel-item">
+											      <img src="<?= $product->cover ?>" class="d-block w-100" alt="...">
+											    </div>
+											    <div class="carousel-item">
+											      <img src="<?= $product->cover ?>" class="d-block w-100" alt="...">
+											    </div>
+											  </div>
+											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">Previous</span>
+											  </button>
+											  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">Next</span>
+											  </button>
+											</div>
 
-        
-        if ($id) {
-          $product = getProductDetails($id);
+							  		</div>
 
-          if ($product) {
-        ?>
-        <div class="card">
-          <div class="card-header">
-            <?= htmlspecialchars($product['categories'][0]['slug']) ?>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-xs-12 col-md-4">
-                <img src="<?= htmlspecialchars($product['cover']) ?>" class="d-block w-100" alt="<?= htmlspecialchars($product['name']) ?>">
-              </div>
-  
-              <div class="col">
-                <h5 class="card-title"><?= htmlspecialchars($product['name']) ?></h5>
-                <h3>$<?= htmlspecialchars(number_format($product['presentations'][0]['price'][0]['amount'], 2)) ?></h3>
-                <p class="card-text">Descripcion: <?= htmlspecialchars($product['features']) ?></p>
-                <a href="#" class="btn btn-primary">Comprar</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <?php
-          } else {
-            echo "<div class='alert alert-danger'>Producto no encontrado.</div>";
-          }
-        } else {
-          echo "<div class='alert alert-warning'>ID del producto no proporcionado.</div>";
-        }
-        ?>
+							  		<div class="col">
+							  			
+							  			<h5 class="card-title">
+							  				
+							  				<?= $product->name ?>
 
-      </div>
+							  			</h5>
+									    <p class="card-text">
+									    	
+									    	<?= $product->description ?>
+									    </p>
+
+									    <h3>
+									    	$100,00 MXN
+									    </h3>
+
+									    <p>
+									    	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+									    	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+									    	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+									    	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+									    	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+									    	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+									    </p>
+
+									    <a href="#" class="btn btn-primary">Go somewhere</a>
+							  		</div>
+
+							  	</div>
+
+							    
+							  </div>
+							</div>
+
+							 
+							 <div class="card">
+							  <div class="card-header">
+							    Featured
+							  </div>
+							  <div class="card-body">
+							    
+							  	<table class="table">
+								  <thead>
+								    <tr>
+								      <th scope="col">#</th>
+								      <th scope="col">First</th>
+								      <th scope="col">Last</th>
+								      <th scope="col">Handle</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <th scope="row">1</th>
+								      <td>Mark</td>
+								      <td>Otto</td>
+								      <td>@mdo</td>
+								    </tr>
+								    <tr>
+								      <th scope="row">2</th>
+								      <td>Jacob</td>
+								      <td>Thornton</td>
+								      <td>@fat</td>
+								    </tr>
+								    <tr>
+								      <th scope="row">3</th>
+								      <td colspan="2">Larry the Bird</td>
+								      <td>@twitter</td>
+								    </tr>
+								  </tbody>
+								</table>
+
+							  </div>
+							</div>
     </div>
   </div>
 
