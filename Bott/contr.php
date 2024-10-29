@@ -115,6 +115,8 @@ class ProducController
 	{
 		$curl = curl_init();
 
+        $cover = isset($_FILES['cover']) ? curl_file_create($_FILES['cover']['tmp_name'], $_FILES['cover']['type'], $_FILES['cover']['name']) : null;
+
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
 		  CURLOPT_RETURNTRANSFER => true,
@@ -128,7 +130,8 @@ class ProducController
 		  	'name' => $nombre,
 		  	'slug' => $slug,
 		  	'description' => $description,
-		  	'features' => $features
+		  	'features' => $features,
+            'cover' => $cover,
 		  ),
 		  CURLOPT_HTTPHEADER => array(
 		    'Authorization: Bearer '.$_SESSION['user_data']->token

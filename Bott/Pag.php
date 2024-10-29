@@ -153,6 +153,10 @@
                           <input type="text" class="form-control" name="nombre" id="nombre" required>
                       </div>
                       <div class="mb-3">
+                          <label for="cover" class="form-label">Imagen</label>
+                          <input type="file" class="form-control" name="cover" id="cover" accept="image/*" required>
+                      </div>
+                      <div class="mb-3">
                           <label for="slug" class="form-label">Slug</label>
                           <input type="text" class="form-control" name="slug" id="slug" required>
                       </div>
@@ -207,6 +211,16 @@
 			    </label>
 			    <input type="text" class="form-control" id="update_nombre" name="nombre" aria-describedby="emailHelp" required> 
 			  </div>
+
+        <div class="mb-3">
+            <label for="cover" class="form-label">Imagen Actual</label>
+            <img id="imagePreview" src="" alt="S/I" style="max-width: 60%; display: none;"/>
+        </div>
+
+        <div class="mb-3">
+          <label for="cover" class="form-label">Imagen</label>
+          <input type="file" class="form-control" name="cover" id="cover" accept="image/*">
+        </div>
 			  
 			  <div class="mb-3">
 			    <label for="slug" class="form-label">
@@ -290,7 +304,17 @@
 			document.getElementById("update_features").value = producto.features
 			document.getElementById("product_id").value = producto.id
 			
+        // Obtener la URL de la imagen
+      const imageUrl = producto.cover;
 
+      // Mostrar la imagen en el modal
+      const imagePreview = document.getElementById("imagePreview");
+      if (imageUrl) {
+          imagePreview.src = imageUrl; // Asignar la URL de la imagen
+          imagePreview.style.display = "block"; // Hacer visible la imagen
+      } else {
+          imagePreview.style.display = "none"; // Ocultar si no hay imagen
+      }
 
 		}
 
