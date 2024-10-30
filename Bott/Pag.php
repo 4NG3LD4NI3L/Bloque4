@@ -125,7 +125,7 @@
                       <div class="card-body">
                           <h5 class="card-title"><?= htmlspecialchars($product->name) ?></h5>
                           <p class="card-text"><?= htmlspecialchars($product->description) ?></p>
-                          <a href="./Detalles.php?slug=<?= $product->slug  ?>" class="btn btn-primary">Ver detalles</a>
+                          <a href="./product/<?= $product->slug ?>/" class="btn btn-primary">Ver detalles</a>
                           <button onclick='editar(this)' data-product='<?= json_encode($product)  ?>' data-bs-toggle="modal" data-bs-target="#updateModal" type="button" class="btn btn-warning">Editar</button>
                           <button onclick="eliminar(<?= $product->id ?>)" type="button" class="btn btn-danger m-2">Eliminar</button>
                       </div>
@@ -147,7 +147,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form id="modalForm" action="./contr.php" method="POST" enctype="multipart/form-data">
+                  <form id="modalForm" action="/resources" method="POST" enctype="multipart/form-data">
                       <div class="mb-3">
                           <label for="name" class="form-label">Nombre</label>
                           <input type="text" class="form-control" name="nombre" id="nombre" required>
@@ -203,7 +203,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        <form method="POST" action="contr.php">
+	        <form method="POST" action="/resources">
 			  
 			  <div class="mb-3">
 			    <label for="nombre" class="form-label">
@@ -280,7 +280,7 @@
 	  </div>
 	</div>
 
-	<form method="POST" id="remove_form" action="contr.php"> 
+	<form method="POST" id="remove_form" action="/resources"> 
 
 	  <input type="hidden" name="action" value="delete_product">
 	  <input type="hidden" name="product_id" id="product_id_delete">

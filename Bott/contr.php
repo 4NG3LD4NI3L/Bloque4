@@ -146,9 +146,9 @@ class ProducController
 
 		if (isset($response->code) && $response->code == 4) {
 			
-			header('Location: ./pag.php?status=ok');
+			header('Location: ./home');
 		}else{
-			header('Location: ./pag.php?status=error');
+			header('Location: ./homee');
 		}
 
 		
@@ -184,9 +184,9 @@ class ProducController
 
 		if (isset($response->code) && $response->code == 4) {
 			
-			header('Location: ./pag.php?status=ok');
+			header('Location: ./home');
 		}else{
-			header('Location: ./pag.php?status=error');
+			header('Location: ./homee');
 		}
 
 		
@@ -218,9 +218,9 @@ class ProducController
 
 		if (isset($response->code) && $response->code == 2) {
 			
-			header('Location: ./pag.php?status=ok');
+			header('Location: ./home');
 		}else{
-			header('Location: ./pag.php?status=error');
+			header('Location: ./home');
 		}
 
 		

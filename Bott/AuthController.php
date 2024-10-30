@@ -57,8 +57,8 @@ class AuthControlller
 			$_SESSION['user_data'] = $response->data;
 			$_SESSION['user_id'] = $response->data->id;
 
-			header('Location: ./pag.php');
-
+			header('Location: ./home');
+			exit;
 		}else{
 
 			header('Location: ' . $_SERVER['HTTP_REFERER']);

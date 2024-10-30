@@ -16,7 +16,7 @@
             <div class="col-lg-6 text-center">
                 <img src="retr.jpg" class="img-fluid mb-4 rounded-circle" alt="Profile Image" style="max-width: 150px;">
                 <h1 class="mb-4 fw-bold text-primary">SIGN INTO YOUR ACCOUNT</h1>
-                <form method="POST" action="AuthController.php">
+                <form method="POST" action="./auth">
                   <div class="mb-3 text-start">
                       <label for="correo" class="form-label">Email</label>
                       <input type="email" class="form-control" id="correoo" aria-describedby="emailHelp" required name="correo">

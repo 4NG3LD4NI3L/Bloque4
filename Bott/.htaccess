@@ -1,0 +1,16 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+
+RewriteRule ^home/?$ Pag.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^product/([^/]+)/?$ Detalles.php?slug=$1
+
+# Redirigir AuthController.php a {base}/auth
+RewriteRule ^auth$ AuthController.php 
+
+# Redirigir contr.php a {base}/resources
+RewriteRule ^resources$ contr.php 
+
